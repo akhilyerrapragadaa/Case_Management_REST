@@ -11,7 +11,7 @@ import org.springframework.context.annotation.ComponentScan;
 @ComponentScan
 @SpringBootApplication
 public class Application extends SpringBootServletInitializer{
-	//This is my application
+	//This is my applications in kubernetes
 	 @Override
 	    protected SpringApplicationBuilder configure(SpringApplicationBuilder application) {
 	    	return application.sources(Application.class);
