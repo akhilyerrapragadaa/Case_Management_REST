@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<title>Insert title here</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"/>
+<link rel="stylesheet" href="style.css" />
+</head>
+
+<body class="container">
+    <div class="row">
+        <div class="col- offset-md-3" style="padding-top: 6rem">
+            <div class="alert alert-success" role="alert" >
+                <h4 class="alert-heading">Welcome <span th:text="${register_form.name}"></span>!</h4>
+                <p>You have successfully registered with us, you can now login and start using our application!</p>
+                <hr>
+                <p class="mb-0">
+                    <strong><a href="/login">Go to login page</a></strong>
+                </p>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

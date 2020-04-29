@@ -1,0 +1,44 @@
+image: openjdk:8-jdk-alpine
+pipelines:
+  default:
+    - step:
+        name: Deploy
+        deployment: production
+        image: atlassian/pipelines-kubectl
+        script:
+          - sed -i "s|{{image}}|153104/akhil:spring-app|g" deployment.yml
+          - export KUBERNETES_MASTER=http://MasterIP:8080
+          - echo $KUBECONFIG | base64 -d > kubeconfig.yml
+          - kubectl --kubeconfig=kubeconfig.yml --namespace=spring-spp set image deployment/spring-app spring-app=153104/akhil:spring-app
+          - pipe: atlassian/kubectl-run:1.1.2
+            variables:
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+              KUBECTL_COMMAND: 'apply'
+              RESOURCE_PATH: 'deployment.yml'
+
+options:
+  docker: true

@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+  xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+<head>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>On Boarding Case</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+</head>
+<body class="container">
+    <div class="row" style="padding-top: 2rem">
+        <div class="col-8 offset-md-2">
+            <form  th:action="@{/add-case/onbcase}" th:object="${case_form}" method="post">
+                <h2 class="text-center">New On Boarding Case</h2>
+                <br>
+                <div class="form-group">
+                    <label>Requested By</label>
+                    <input type="text" class="form-control" th:placeholder="${case_form.getRequestedBy()}" readonly/>
+                </div>
+                <div class="form-group">
+                    <label>Type</label>
+                    <input type="text" class="form-control" placeholder="On Boarding Case" readonly/>
+                </div>
+                <div class="form-group">
+                    <label>Accessories You need</label>
+                    <textarea class="form-control"
+                              th:field="*{accessories}"
+                              th:classappend="${#fields.hasErrors('accessories')} ? is-invalid"></textarea>
+                    <div class="invalid-feedback"
+                         th:if="*{#fields.hasErrors('accessories')}"
+                         th:errors="*{accessories}"></div>
+                </div>
+                <div class="form-group">
+                    <label>Comment</label>
+                    <textarea type="text" class="form-control"
+                              th:field="*{comment}"
+                              th:classappend="${#fields.hasErrors('comment')} ? is-invalid"></textarea>
+                    <div class="invalid-feedback"
+                         th:if="*{#fields.hasErrors('comment')}"
+                         th:errors="*{comment}"></div>
+                </div>
+                <div class="alert alert-danger" role="alert" th:if="${case_error}" th:text="${case_error}"></div>
+                 <button type="submit" th:onclick="return validateForm();" class="btn btn-primary login-btn btn-block">Submit</button>
+                 <a href="/home">Go to my cases</a>
+          <script th:inline="javascript">
+  
+  function validateForm() {
+	  var frm = document.getElementsByName('myForm')[0];
+     frm.submit(); // Submit the form
+     frm.reset();  // Reset all form data
+     return false; 
+  }
+ 
+</script> 
+            </form>
+       </div>
+    </div>
+</body>
+</html>

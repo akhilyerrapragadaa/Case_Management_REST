@@ -1,0 +1,16 @@
+com/project/human/resource/services/HumanResourcesService.class
+com/project/human/resource/domain/CasesException.class
+com/project/human/resource/services/AuthenticationService.class
+com/project/human/resource/repositories/UserRepository.class
+com/project/human/resource/repositories/CaseRepository.class
+com/project/human/resource/presentation/LoginForm.class
+com/project/human/resource/presentation/HumanResourceController.class
+com/project/human/resource/domain/Routes.class
+com/project/human/resource/presentation/OfficerCommentForm.class
+com/project/human/resource/models/User.class
+com/project/human/resource/presentation/CaseRequestForm.class
+com/project/human/resource/presentation/RegistrationForm.class
+com/project/human/resource/domain/AuthenticationException.class
+com/project/human/resource/models/Cases.class
+com/project/human/resource/domain/Constants.class
+com/project/human/resource/Application.class

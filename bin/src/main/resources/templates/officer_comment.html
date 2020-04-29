@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Adding Officer Comment</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+</head>
+<body class="container">
+    <div class="row" style="padding-top: 2rem">
+        <div class="col-10 offset-md-1">
+            <h2 class="text-center">Adding Officer Comment</h2>
+            <hr>
+            <div th:switch="${case_info.getType()}">
+                <h4 th:case="'ercase'">Employee Relation Case</h4>
+                <h4 th:case="'prcase'">Payroll Case</h4>
+                <h4 th:case="'wfcase'">Workforce Case</h4>
+            </div>
+            <div class="card text-white bg-secondary">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-2">
+                            <b>Requested By</b>
+                            <p th:text="${case_info.getRequestedBy()}"></p>
+                        </div>
+                        <div class="col-2">
+                            <b>Type</b>
+                            <div th:switch="${case_info.getType()}">
+                                <p th:case="'ercase'">Employee Relation</p>
+                                <p th:case="'prcase'">Payroll</p>
+                                <p th:case="'wfcase'">Workforce</p>
+                            </div>
+                        </div>
+                        <div class="col-2">
+                            <b>Issue</b>
+                            <p th:text="${case_info.getIssue()}"></p>
+                        </div>
+                        <div class="col-6">
+                            <b>Comment</b>
+                            <p th:text="${case_info.getComment()}"></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <br>
+            <form th:action="@{'/add-comment/' + ${case_info.getStringId()}}" th:object="${comment_form}" method="post">
+                <div class="form-group">
+                    <label>Your comment</label>
+                    <textarea  type="text" class="form-control"
+                               th:field="*{comment}"
+                               th:classappend="${#fields.hasErrors('comment')} ? is-invalid"></textarea>
+                    <div class="invalid-feedback"
+                         th:if="*{#fields.hasErrors('comment')}"
+                         th:errors="*{comment}"></div>
+                </div>
+                <div class="alert alert-danger" role="alert" th:if="${case_error}" th:text="${case_error}"></div>
+                <button type="submit" class="btn btn-primary login-btn btn-block">Submit</button>
+                <a href="/home">Go to my cases</a>
+            </form>
+        </div>
+    </div>
+</body>
+</html>

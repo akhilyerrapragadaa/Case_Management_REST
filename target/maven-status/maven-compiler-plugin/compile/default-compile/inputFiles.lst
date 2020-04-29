@@ -1,0 +1,16 @@
+/home/akhil/case-management/src/main/java/com/project/human/resource/presentation/RegistrationForm.java
+/home/akhil/case-management/src/main/java/com/project/human/resource/domain/Constants.java
+/home/akhil/case-management/src/main/java/com/project/human/resource/presentation/OfficerCommentForm.java
+/home/akhil/case-management/src/main/java/com/project/human/resource/presentation/HumanResourceController.java
+/home/akhil/case-management/src/main/java/com/project/human/resource/repositories/CaseRepository.java
+/home/akhil/case-management/src/main/java/com/project/human/resource/domain/AuthenticationException.java
+/home/akhil/case-management/src/main/java/com/project/human/resource/repositories/UserRepository.java
+/home/akhil/case-management/src/main/java/com/project/human/resource/presentation/LoginForm.java
+/home/akhil/case-management/src/main/java/com/project/human/resource/services/HumanResourcesService.java
+/home/akhil/case-management/src/main/java/com/project/human/resource/models/User.java
+/home/akhil/case-management/src/main/java/com/project/human/resource/presentation/CaseRequestForm.java
+/home/akhil/case-management/src/main/java/com/project/human/resource/services/AuthenticationService.java
+/home/akhil/case-management/src/main/java/com/project/human/resource/models/Cases.java
+/home/akhil/case-management/src/main/java/com/project/human/resource/domain/CasesException.java
+/home/akhil/case-management/src/main/java/com/project/human/resource/Application.java
+/home/akhil/case-management/src/main/java/com/project/human/resource/domain/Routes.java

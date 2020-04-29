@@ -1,0 +1,100 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+<html>
+<head>
+  <meta http-equiv="charset=ISO-8859-1">
+  <title>Home</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+  <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+</head>
+<body class="container">
+  <div class="row" style="padding-top: 2rem">
+    <div class="col-12">
+      <div class="jumbotron">
+        <h1 th:text="'Welcome, ' + ${user_info.name} + '!'"></h1>
+        <p> This is your HR platform you can manage your cases and submit new ones.</p>
+        <hr class="my-4">
+        <button class="btn btn-primary" onClick="window.location.href='/login'">Log Out</button>
+      </div>
+      <div style="display: flex">
+        <h4>Human Resource Cases</h4>
+        <button id="add_case_btn"
+                type="button"
+                class="btn btn-info dropdown-toggle"
+                data-toggle="dropdown"
+                aria-haspopup="true"
+                aria-expanded="false"
+                style="margin-left: 1rem; margin-top: -0.3rem;"
+                th:if="${user_info.role} != manager">
+          New Case
+        </button>
+        <div class="dropdown-menu" aria-labelledby="add_case_btn">
+          <a href="/new-case/ercase" class="dropdown-item" th:if="${user_info.role} == user">HR Employee Relations Case</a>
+          <a href="/new-case/prcase" class="dropdown-item" th:if="${user_info.role} == user">HR Payroll Case</a>
+          <a href="/new-case/wfcase" class="dropdown-item" th:if="${user_info.role} == user">HR Workforce Administration Case</a>
+          <a href="/new-case/onbcase" class="dropdown-item" th:if="${user_info.role} == officer">HR On Boarding</a>
+          <a href="/new-case/offbcase" class="dropdown-item" th:if="${user_info.role} == officer">HR Off Boarding</a>
+        </div>
+      </div>
+      <hr>
+      <div class="alert alert-danger" role="alert" th:if="${case_error}" th:text="${case_error}">
+      </div>
+      <table class="table table-striped" th:if="${not #lists.isEmpty(my_cases)}">
+        <thead class="thead-dark">
+          <tr>
+            <th scope="col">Requested By</th>
+            <th scope="col">Type</th>
+            <th scope="col">Issue</th>
+            <th scope="col">Accessories</th>
+            <th scope="col">Comment</th>
+            <th scope="col">Officer Comment</th>
+            <th scope="col">Assign To</th>
+            <th scope="col">State</th>
+            <th scope="col" th:if="${user_info.role} != user">Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr th:each="case: ${my_cases}">
+            <td th:text="${case.getRequestedBy()}"></td>
+            <td>
+              <div th:switch="${case.getType()}">
+                <span th:case="'ercase'">Employee Relation</span>
+                <span th:case="'prcase'">Payroll</span>
+                <span th:case="'wfcase'">Workforce</span>
+                <span th:case="'offbcase'">Off Boarding</span>
+                <span th:case="'onbcase'">On Boarding</span>
+              </div>
+            </td>
+            <td th:text="${case.getIssue()}"></td>
+            <td th:text="${case.getAccessories()}"></td>
+            <td th:text="${case.getComment()}"></td>
+            <td th:text="${case.getOfficerComment()}"></td>
+            <td>
+              <div th:switch="${case.getAssignedTo()}">
+                <span th:case="'manager'">Manager</span>
+                <span th:case="'officer'">Officer</span>
+              </div>
+            </td>
+            <td>
+              <span class="badge badge-warning" th:if="${case.getState()} == in_progress">In Progress</span>
+              <span class="badge badge-success" th:if="${case.getState()} == accepted">Accepted</span>
+              <span class="badge badge-danger"  th:if="${case.getState()} == declined">Declined</span>
+            </td>
+            <td th:if="${user_info.role} != user">
+                <a th:href="@{'/add-comment/' + ${case.getStringId()}}" class="btn btn-primary btn-sm" th:if="${user_info.role} == officer and ${case.getAssignedTo()} == officer">Add Comment</a>
+                <a th:href="@{'/accept/' + ${case.getStringId()}}" class="btn btn-success btn-sm" th:if="${user_info.role} == manager">Accept</a>
+                <a th:href="@{'/decline/' + ${case.getStringId()}}" class="btn btn-danger btn-sm" th:if="${user_info.role} == manager">Decline</a>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <div class="alert alert-warning" role="alert" th:if="${#lists.isEmpty(my_cases)}">
+        You do not have any cases currently!
+      </div>
+    </div>
+  </div>
+</body>
+</html>
